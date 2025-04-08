@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, BackHandler } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { Styles } from '../constants';
 
 const Register = () => {
+    const navigation = useNavigation();
+    
     const [isSelectionModeEnabled, setIsSelectionModeEnabled] = useState(false);
 
     useFocusEffect(
@@ -29,6 +32,7 @@ const Register = () => {
     return (
         <View style={Styles.container}>
             <Text>Register Screen</Text>
+            <Text style={Styles.textLink} onPress={() => navigation.goBack()}>Regresar al Inicio de sesión</Text>
         </View>
     );
 };

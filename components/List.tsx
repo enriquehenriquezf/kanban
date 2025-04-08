@@ -5,7 +5,7 @@ import { Styles } from '../constants';
 const List = () => {
     return (
         <View style={Styles.container}>
-            <Text>List Screen</Text>
+            <Text>List Component</Text>
         </View>
     );
 };

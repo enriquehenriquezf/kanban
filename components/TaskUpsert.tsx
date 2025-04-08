@@ -1,16 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Styles } from '../constants';
-import { useNavigation } from '@react-navigation/native';
 
-const Table = () => {
-    const navigation = useNavigation();
-    
+const TaskUpsert = () => {
     return (
         <View style={Styles.container}>
-            <Text>Table Screen</Text>
+            <Text>TaskUpsert Component</Text>
         </View>
     );
 };
 
-export default Table;
+export default TaskUpsert;

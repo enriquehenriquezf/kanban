@@ -1,13 +1,16 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Styles } from '../constants';
+import { useNavigation } from '@react-navigation/native';
 
-const Card = () => {
+const Board = () => {
+    const navigation = useNavigation();
+    
     return (
         <View style={Styles.container}>
-            <Text>Card Screen</Text>
+            <Text>Board Screen</Text>
         </View>
     );
 };
 
-export default Card;
+export default Board;

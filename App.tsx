@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import LoginScreen from './app/Auth';
 import RegisterScreen from './app/Register';
-import Table from './app/Table';
+import Board from './app/Board';
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -21,11 +21,13 @@ function AuthStackScreen() {
 
 function HomeStackScreen() {
   return (
-    <HomeStack.Navigator initialRouteName="Table">
+    <HomeStack.Navigator initialRouteName="Board">
       <HomeStack.Screen
-        name="Table"
-        component={Table}
-        options={{ tabBarLabel: 'KanBan' }}
+        name="Board"
+        component={Board}
+        options={{
+          title: 'Mi Tablero',
+        }}
       />
     </HomeStack.Navigator>
   );
