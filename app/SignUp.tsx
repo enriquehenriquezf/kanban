@@ -6,6 +6,7 @@ import { Spacing, Styles } from '@/constants';
 import { useValidation } from '@/hooks/useValidation';
 import { AuthSignUpType, InputType } from '@/types';
 import DynamicInput from '@/components/DynamicInput';
+import { api } from '@/services/api';
 
 const SignUp = () => {
     const navigation = useNavigation();
@@ -39,7 +40,7 @@ const SignUp = () => {
      * Function to handle the singUp button action
      * @returns - Navigates to the home screen if the singUp is successful
      */
-    const SignUp = () => {
+    const SignUp = async () => {
         if (!signUpDisabled) {
             //TODO: validate credentials with backend
             const body: AuthSignUpType = {
@@ -49,9 +50,11 @@ const SignUp = () => {
                 password: password,
                 password2: password2,
             };
-            console.log(body);
+            // console.log(body);
             //TODO: Save credentials in Redux
-            navigation.reset({index: 0, routes: [{name: 'Home'}]});
+            const response = await api().signUp(body);
+            console.log(response)
+            response.success && navigation.reset({index: 0, routes: [{name: 'Home'}]});
         }
     }
 

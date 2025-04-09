@@ -26,12 +26,12 @@ An application that allows users to manage tasks on a Kanban board (To Do, In Pr
 - [x]  Kanban board
 - [ ]  Drag and Drop Tasks cards
 - [x]  Modal of Update or Insert Task
-- [ ]  Responsive UI
+- [x]  Responsive UI
 - [x]  Optimal UX
 - [x]  Sign In
 - [x]  Sign Up
 - [ ]  Real-time synchronization of task changes
-- [ ]  Backend connection
+- [-]  Backend connection
 - [ ]  Filters
 - [ ]  Offline support
 - [ ]  Unit tests
