@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Colors, Spacing, Styles } from '@/constants';
 import { PriorityType, TaskType } from '@/types'; 
 // import { WebView } from 'react-native-webview';
@@ -18,7 +18,7 @@ const Task = (task: TaskType) => {
     }
 
     return (
-        <View key={task.id} style={[Styles.card]}>
+        <TouchableOpacity onPress={task?.onPress} key={task.id} style={[Styles.card]}>
             {/* TITLE */}
             <Text 
                 ellipsizeMode='tail'
@@ -56,7 +56,7 @@ const Task = (task: TaskType) => {
                     { getDateString(task.date) }
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 

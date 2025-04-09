@@ -23,12 +23,20 @@ const DynamicInput = ({id, label, placeholder, type, text, valid, error, onHandl
                 placeholder={placeholder || label || ''}
                 secureTextEntry={type == InputType.PASSWORD ? true : false}
                 keyboardType={type == InputType.EMAIL ? 'email-address' : 'default'}
+                numberOfLines={type == InputType.TEXTAREA ? 4 : 1}
+                multiline={type == InputType.TEXTAREA ? true : false}
                 onChangeText={onHandleText}
                 onEndEditing={() => onHandleText(text)}
                 textContentType={'oneTimeCode'}
                 // onSubmitEditing={() => onHandleText(text)}
                 defaultValue={text}
-                style={[Styles.input, Spacing.m('b', !valid && error ? 1 : 0), (valid == null ? '' : valid ? Styles.inputSuccess : Styles.inputError), {width: '100%'}]}
+                style={[
+                    Styles.input,
+                    Spacing.m('b', !valid && error ? 1 : 0),
+                    (valid == null ? '' : valid ? Styles.inputSuccess : Styles.inputError),
+                    (type == InputType.TEXTAREA && Styles.textArea),
+                    {width: '100%'}
+                ]}
             />
             {!valid && error && <Text style={[Styles.errorMessage]}>{error}</Text>}
         </View>

@@ -14,8 +14,8 @@ interface ValidationProps {
  * @returnType {state: string; valid: boolean | null; error: string | null; handleValidation: (text: string) => void; }
  * @returns {ValidationProps} - Object containing the state, validation state, error message and function to handle validation
 */
-export const useValidation = (type: InputType): ValidationProps => {
-    const [state, setState] = useState<string>('');
+export const useValidation = (type: InputType, defaultText?: string): ValidationProps => {
+    const [state, setState] = useState<string>(defaultText || '');
     const [valid, setValid] = useState<boolean | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -29,6 +29,9 @@ export const useValidation = (type: InputType): ValidationProps => {
             }
             else if(type == InputType.TEXT){
                 textValidation(state);
+            }
+            else if(type == InputType.TEXTAREA){
+                textAreaValidation(state);
             } 
         }
     }, [state]);
@@ -104,6 +107,21 @@ export const useValidation = (type: InputType): ValidationProps => {
         else if (text.length > 50) {
             setValid(false);
             setError('El texto no puede tener más de 50 caracteres');
+        }
+        else {
+            setValid(true);
+            setError(null);
+        }
+    }
+
+    const textAreaValidation = (text: string) => {
+        if (text.length < 2) {
+            setValid(false);
+            setError('El texto debe tener al menos 2 caracteres');
+        }
+        else if (text.length > 1000) {
+            setValid(false);
+            setError('El texto no puede tener más de 1000 caracteres');
         }
         else {
             setValid(true);

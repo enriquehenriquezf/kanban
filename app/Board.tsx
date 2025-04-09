@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import { Spacing, Styles } from '@/constants';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Task from '@/components/Task';
 import {BoardType, PriorityType} from '@/types';
 
@@ -90,6 +90,22 @@ const BOARD_EMPTY: BoardType = {
 
 const Board = () => {
     const navigation = useNavigation();
+    const route = useRoute();
+    const params = route.params;
+    console.log(route.params)
+    
+    useEffect(() => {
+        if (params?.deleted) {
+            // let board = {...board};
+            // const columnIndex = board.columns.findIndex(column => column.id === params.selectedColumn);
+            // const taskIndex = board.columns[columnIndex].tasks.findIndex(task => task.id === params.deleted);
+            // if (taskIndex !== -1) {
+            //     board.columns[columnIndex].tasks.splice(taskIndex, 1);
+            //     setBoard({...board});
+            // }
+        }
+    }, [params?.deleted]);
+
 
     const [board, setBoard] = useState<BoardType>({...BOARD_EMPTY});
     const [selectedTask, setSelectedTask] = useState(null);
@@ -113,7 +129,7 @@ const Board = () => {
                 keyExtractor={(item) => item.id.toString()}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
+                renderItem={({ item, index }) => (
                     /* COLUMN */
                     <View style={[Spacing.m('x', 3), Styles.boardColumn]}>
                         <Text style={[Styles.h1, Spacing.m('b', 4)]}>{item.name}</Text>
@@ -127,7 +143,7 @@ const Board = () => {
                                 description={task.description}
                                 priority={task.priority}
                                 date={task.date}
-                                // onPress={() => navigation.navigate('Task', { task })} //TODO: implement task modal
+                                onPress={() => navigation.navigate('TaskUpsert', { task, column: index })}
                             />
                         ))}
                     </View>
@@ -137,7 +153,7 @@ const Board = () => {
             {/* ADD TASK BUTTON */}
             <TouchableOpacity 
                 style={[Styles.button, Styles.taskButton]}
-                onPress={() => navigation.navigate('TaskUpsert', { task: null })}
+                onPress={() => navigation.navigate('TaskUpsert', { task: null, column: 0 })}
             >
                 <Text style={[Styles.taskButtonText]}>+</Text>
             </TouchableOpacity>

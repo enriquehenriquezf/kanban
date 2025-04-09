@@ -72,6 +72,11 @@ export const Styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.primary,
     },
+    buttonDanger: {
+        backgroundColor: Colors.background,
+        borderWidth: 1,
+        borderColor: Colors.danger,
+    },
     buttonText: {
         color: Colors.textLight,
         fontSize: 16,
@@ -81,6 +86,9 @@ export const Styles = StyleSheet.create({
     },
     buttonTextOutline: {
         color: Colors.primary,
+    },
+    buttonTextDanger: {
+        color: Colors.danger,
     },
     input: {
         height: 52,
@@ -175,5 +183,8 @@ export const Styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.textLight,
         textAlign: 'center',
+    },
+    textArea: {
+        height: 100,
     }
 });

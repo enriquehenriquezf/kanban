@@ -9,6 +9,7 @@ import LoginScreen from '@/app/Auth';
 import SignUpScreen from '@/app/SignUp';
 import Board from '@/app/Board';
 import TaskUpsert from '@/components/TaskUpsert';
+import { Colors } from './constants';
 
 
 const Stack = createStackNavigator();
@@ -52,6 +53,7 @@ function HomeStackScreen() {
             headerShown: false,
             title: 'Mi Tablero',
             tabBarLabelPosition: 'beside-icon',
+            tabBarActiveTintColor: Colors.primary,
             tabBarIcon: ({ color }: { color: string }) => (
               <MaterialIcons name="view-kanban" color={color} size={24} />
             ),
@@ -65,6 +67,7 @@ function HomeStackScreen() {
             title: 'Cerrar Sesión',
             headerShown: false,
             tabBarLabelPosition: 'beside-icon',
+            tabBarActiveTintColor: Colors.primary,
             tabBarIcon: ({ color }: { color: string }) => (
               <MaterialIcons name="logout" color={color} size={24} />
             ),
