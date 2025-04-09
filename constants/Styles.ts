@@ -22,6 +22,12 @@ export const Styles = StyleSheet.create({
         fontSize: 16,
         textDecorationLine: 'underline',
     },
+    errorMessage: {
+        color: Colors.error,
+        fontSize: 14,
+        textAlign: 'center',
+        fontStyle: 'italic',
+    },
     h1: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -32,6 +38,9 @@ export const Styles = StyleSheet.create({
         width: '80%',
         ...Spacing.p('', 3),
         borderRadius: 8,
+    },
+    buttonDisabled: {
+        backgroundColor: Colors.primaryLight,
     },
     buttonText: {
         color: Colors.textLight,
@@ -47,6 +56,12 @@ export const Styles = StyleSheet.create({
         borderWidth: 1,
         ...Spacing.p('', 3),
         borderRadius: 8,
+    },
+    inputError: {
+        borderColor: Colors.error,
+    },
+    inputSuccess: {
+        borderColor: Colors.success,
     },
     card: {
         backgroundColor: Colors.cardBackground,
