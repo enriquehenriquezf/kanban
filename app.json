@@ -2,7 +2,7 @@
   "expo": {
     "name": "kanban",
     "slug": "kanban",
-    "version": "0.4.4",
+    "version": "0.5.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,7 +13,11 @@
       "backgroundColor": "#6200ee"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kike140.kanban",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -24,6 +28,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2503b8ad-44f2-47e6-815c-f2e0fce4efa9"
+      }
     }
   }
 }

@@ -25,7 +25,7 @@ An application that allows users to manage tasks on a Kanban board (To Do, In Pr
 - [x]  Cross platform
 - [x]  Kanban board
 - [ ]  Drag and Drop Tasks cards
-- [ ]  Modal of Update or Insert Task
+- [x]  Modal of Update or Insert Task
 - [ ]  Responsive UI
 - [x]  Optimal UX
 - [x]  Sign In

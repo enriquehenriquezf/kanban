@@ -1,14 +1,36 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import LoginScreen from './app/Auth';
-import SignUpScreen from './app/SignUp';
-import Board from './app/Board';
+import { Alert } from 'react-native';
+import LoginScreen from '@/app/Auth';
+import SignUpScreen from '@/app/SignUp';
+import Board from '@/app/Board';
+import TaskUpsert from '@/components/TaskUpsert';
+
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
-const HomeStack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const LogoutScreen = () => {
+  const navigation = useNavigation();
+  
+  Alert.alert('Cerrar sesión', 'Al presionar aceptar se cerrará la sesión', [
+    {
+      text: 'Aceptar',
+      onPress: () => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Auth' }],
+        });
+      },
+    },
+  ]);
+
+  return null;
+}
 
 function AuthStackScreen() {
   return (
@@ -21,15 +43,31 @@ function AuthStackScreen() {
 
 function HomeStackScreen() {
   return (
-    <HomeStack.Navigator initialRouteName="Board">
-      <HomeStack.Screen
-        name="Board"
-        component={Board}
-        options={{
-          title: 'Mi Tablero',
-        }}
-      />
-    </HomeStack.Navigator>
+    <Drawer.Navigator initialRouteName="Board">
+      <Drawer.Group>
+        <Drawer.Screen
+          name="Board"
+          component={Board}
+          options={{
+            title: 'Mi Tablero',
+          }}
+        />
+
+        <Drawer.Screen
+          name="Logout"
+          component={<LogoutScreen />}
+          options={{
+            title: 'Cerrar Sesión',
+            headerShown: false,
+          }}
+        />
+      </Drawer.Group>
+
+      {/* Modal Screen */}
+      <Drawer.Group screenOptions={{ presentation: 'modal' }}>
+        <Drawer.Screen name="TaskUpsert" component={TaskUpsert} />
+      </Drawer.Group>
+    </Drawer.Navigator>
   );
 }
 
