@@ -1,9 +1,10 @@
 import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Alert } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import LoginScreen from '@/app/Auth';
 import SignUpScreen from '@/app/SignUp';
 import Board from '@/app/Board';
@@ -12,12 +13,12 @@ import TaskUpsert from '@/components/TaskUpsert';
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const BottomTab = createBottomTabNavigator();
 
 const LogoutScreen = () => {
   const navigation = useNavigation();
   
-  Alert.alert('Cerrar sesión', 'Al presionar aceptar se cerrará la sesión', [
+  Alert.alert('Cerrando sesión', 'Ha cerrado la sesión correctamente.', [
     {
       text: 'Aceptar',
       onPress: () => {
@@ -29,7 +30,7 @@ const LogoutScreen = () => {
     },
   ]);
 
-  return null;
+  return (<></>);
 }
 
 function AuthStackScreen() {
@@ -43,31 +44,34 @@ function AuthStackScreen() {
 
 function HomeStackScreen() {
   return (
-    <Drawer.Navigator initialRouteName="Board">
-      <Drawer.Group>
-        <Drawer.Screen
+    <BottomTab.Navigator initialRouteName="Board">
+        <BottomTab.Screen
           name="Board"
           component={Board}
           options={{
+            headerShown: false,
             title: 'Mi Tablero',
+            tabBarLabelPosition: 'beside-icon',
+            tabBarIcon: ({ color }: { color: string }) => (
+              <MaterialIcons name="view-kanban" color={color} size={24} />
+            ),
           }}
         />
 
-        <Drawer.Screen
+        <BottomTab.Screen
           name="Logout"
-          component={<LogoutScreen />}
+          component={LogoutScreen}
           options={{
             title: 'Cerrar Sesión',
             headerShown: false,
+            tabBarLabelPosition: 'beside-icon',
+            tabBarIcon: ({ color }: { color: string }) => (
+              <MaterialIcons name="logout" color={color} size={24} />
+            ),
           }}
         />
-      </Drawer.Group>
-
-      {/* Modal Screen */}
-      <Drawer.Group screenOptions={{ presentation: 'modal' }}>
-        <Drawer.Screen name="TaskUpsert" component={TaskUpsert} />
-      </Drawer.Group>
-    </Drawer.Navigator>
+      
+    </BottomTab.Navigator>
   );
 }
 
@@ -76,8 +80,16 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Auth" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Auth" component={AuthStackScreen} />
-          <Stack.Screen name="Home" component={HomeStackScreen} />
+          <Stack.Group>
+            <Stack.Screen name="Auth" component={AuthStackScreen} />
+            <Stack.Screen name="Home" component={HomeStackScreen} />
+          </Stack.Group>
+
+          {/* Modal Screen */}
+          <Stack.Group screenOptions={{ presentation: 'modal' }}>
+            <Stack.Screen name="TaskUpsert" component={TaskUpsert} />
+          </Stack.Group>
+
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

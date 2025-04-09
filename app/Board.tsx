@@ -105,7 +105,7 @@ const Board = () => {
     
     
     return (
-        <View style={[Styles.container, Spacing.p('x', 3)]}>
+        <View style={[Styles.container, Spacing.p('x', 3), Spacing.m('t', 12)]}>
             <ScrollView showsHorizontalScrollIndicator={false}>
             {/* LISTS */}
             <FlatList
@@ -137,7 +137,7 @@ const Board = () => {
             {/* ADD TASK BUTTON */}
             <TouchableOpacity 
                 style={[Styles.button, Styles.taskButton]}
-                // onPress={() => navigation.navigate('Task', { task: null })} //TODO: implement task modal
+                onPress={() => navigation.navigate('TaskUpsert', { task: null })}
             >
                 <Text style={[Styles.taskButtonText]}>+</Text>
             </TouchableOpacity>
