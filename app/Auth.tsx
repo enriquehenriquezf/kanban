@@ -39,6 +39,7 @@ const Auth = () => {
             //TODO: validate credentials with backend
             console.log(email, password);
             //TODO: Save credentials in Redux
+            //navigation.reset({index: 0, routes: [{name: 'Home'}]}); //FIXME: replace when drawer is implemented
             navigation.navigate('Home');
         }
     }

@@ -4,8 +4,6 @@
 An application that allows users to manage tasks on a Kanban board (To Do, In Progress, Done) built in React Native.
 
 
-
-
 ## Authors
 
 - [@enriquehenriquezf](https://www.github.com/enriquehenriquezf)
@@ -20,19 +18,21 @@ An application that allows users to manage tasks on a Kanban board (To Do, In Pr
 - AutoComplete code with Copilot
 
 ![Copilot AutoComplete](https://lh3.googleusercontent.com/d/1fAZ7pqo6sSseWw3ubMmZXrmvYVCPy7on=w1920-h1080)
+
+
 ## Features
 
-- Cross platform
-- Kanban board
-- Drag and Drop Tasks cards
-- Modal of Update or Insert Task
-- Responsive UI
-- Optimal UX
-- Sign In
-- Sign Up
-- Real-time synchronization of task changes
-- Backend connection
-- Filters
-- Offline support
-- Unit tests
+- [x]  Cross platform
+- [x]  Kanban board
+- [ ]  Drag and Drop Tasks cards
+- [ ]  Modal of Update or Insert Task
+- [ ]  Responsive UI
+- [x]  Optimal UX
+- [x]  Sign In
+- [x]  Sign Up
+- [ ]  Real-time synchronization of task changes
+- [ ]  Backend connection
+- [ ]  Filters
+- [ ]  Offline support
+- [ ]  Unit tests
 

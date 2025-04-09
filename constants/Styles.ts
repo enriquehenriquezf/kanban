@@ -1,6 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Colors } from './Colors';
 import { Spacing } from './Spacing';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+const calculateBoardWidth = () => {
+    const width = windowWidth * 0.8;
+    if (width < 200) {
+        return 200;
+    } else if (width > 400) {
+        return 400;
+    } else {
+        return width;
+    }
+};
 
 export const Styles = StyleSheet.create({
     container: {
@@ -74,6 +88,12 @@ export const Styles = StyleSheet.create({
     inputSuccess: {
         borderColor: Colors.success,
     },
+    boardColumn: {
+        marginTop: 24,
+        width: calculateBoardWidth(),
+        minWidth: 200,
+        maxWidth: 400
+    },
     card: {
         backgroundColor: Colors.cardBackground,
         borderColor: Colors.cardBorder,
@@ -84,8 +104,11 @@ export const Styles = StyleSheet.create({
             height: 2,
         },
         shadowOpacity: 0.25,
-        padding: 20,
-        borderRadius: 10,
-        marginBottom: 10,
+        ...Spacing.m('b', 4),
+        ...Spacing.p('', 5),
+        borderRadius: 12,
+        width: calculateBoardWidth(),
+        minWidth: 200,
+        maxWidth: 400
     },
 });
