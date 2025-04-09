@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Spacing, Styles } from '@/constants';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Task from '@/components/Task';
 import {BoardType, PriorityType} from '@/types';
+import { api } from '@/services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BOARD: BoardType = {
-    id: "1",
     name: 'Mi Tablero',
     columns: [
         {
@@ -64,7 +65,6 @@ Validar la contraseña mediante lógica condicional o expresión regular.`,
 }
 
 const BOARD_EMPTY: BoardType = {
-    id: "1",
     name: 'Mi Tablero',
     columns: [
         {
@@ -92,31 +92,37 @@ const Board = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const params = route.params;
-    console.log(route.params)
+    
+    const [user, setUser] = useState<any>({});
     
     useEffect(() => {
-        if (params?.deleted) {
-            // let board = {...board};
-            // const columnIndex = board.columns.findIndex(column => column.id === params.selectedColumn);
-            // const taskIndex = board.columns[columnIndex].tasks.findIndex(task => task.id === params.deleted);
-            // if (taskIndex !== -1) {
-            //     board.columns[columnIndex].tasks.splice(taskIndex, 1);
-            //     setBoard({...board});
-            // }
-        }
-    }, [params?.deleted]);
+        getBoardData();
+    }, [params]);
 
 
     const [board, setBoard] = useState<BoardType>({...BOARD_EMPTY});
     const [selectedTask, setSelectedTask] = useState(null);
 
     useEffect(() => {
-        getBoardData();
+        AsyncStorage.getItem('USER').then((value) => {
+            const getUser = value ? JSON.parse(value) : {};
+            setUser(getUser)
+        });
     }, []);
 
-    const getBoardData = () => {
-        //TODO: get board data from backend
-        setBoard({...BOARD});
+    useEffect(() => {
+        getBoardData();
+    }, [user]);
+
+    /**
+     * Get board from firebase
+     */
+    const getBoardData = async () => {
+        const response = await api().getBoard(user.uid);
+        // response.success && AsyncStorage.setItem('BOARD', JSON.stringify(response.board));
+        // response.success && setBoard(response.board);
+        // !response.success && Alert.alert('No se encontró data del usuario');
+        setBoard({...BOARD})
     }
     
     
@@ -131,11 +137,11 @@ const Board = () => {
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => (
                     /* COLUMN */
-                    <View style={[Spacing.m('x', 3), Styles.boardColumn]}>
+                    <View style={[Spacing.m('x', 3), Styles.boardColumn, {minHeight: 400}]}>
                         <Text style={[Styles.h1, Spacing.m('b', 4)]}>{item.name}</Text>
 
                         {/* TASKS */}
-                        {item.tasks.map(task => (
+                        {item?.tasks?.map(task => (
                             <Task
                                 key={task.id}
                                 id={task.id.toString()}

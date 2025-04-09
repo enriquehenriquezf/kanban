@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, BackHandler, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, BackHandler, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { Spacing, Styles } from '@/constants';
@@ -7,6 +7,7 @@ import { useValidation } from '@/hooks/useValidation';
 import { AuthSignUpType, InputType } from '@/types';
 import DynamicInput from '@/components/DynamicInput';
 import { api } from '@/services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUp = () => {
     const navigation = useNavigation();
@@ -53,8 +54,10 @@ const SignUp = () => {
             // console.log(body);
             //TODO: Save credentials in Redux
             const response = await api().signUp(body);
-            console.log(response)
-            response.success && navigation.reset({index: 0, routes: [{name: 'Home'}]});
+            // console.log(response)
+            AsyncStorage.setItem('USER', JSON.stringify(response.user));
+            response.success && navigation.reset({index: 0, routes: [{name: 'Home', params: response.user}]});
+            !response.success && Alert.alert('Datos inválidos', 'No fue posible registrar el usuario')
         }
     }
 

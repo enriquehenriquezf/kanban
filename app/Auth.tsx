@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Text, Image, TextInput, TouchableOpacity, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { KeyboardAvoidingView, Text, Image, TextInput, TouchableOpacity, Platform, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Styles, Images, Spacing } from '@/constants';
 import { useValidation } from '@/hooks/useValidation';
 import { AuthType, InputType } from '@/types';
 import DynamicInput from '@/components/DynamicInput';
+import { api } from '@/services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Auth = () => {
     const navigation = useNavigation();
@@ -14,6 +16,12 @@ const Auth = () => {
 
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
     const [loginDisabled, setLoginDisabled] = useState<boolean>(true);
+
+    useEffect(() => {
+        AsyncStorage.getItem('EMAIL').then((value) => {
+            value && handleEmailValidation(value || '')
+        });
+    }, [])
 
     useEffect(() => {
         handleLoginDisabled();
@@ -34,16 +42,20 @@ const Auth = () => {
      * Function to handle the login button action
      * @returns - Navigates to the home screen if the login is successful
      */
-    const Login = () => {
+    const Login = async () => {
         if (!loginDisabled) {
-            //TODO: validate credentials with backend
             const credentials: AuthType = {
                 email: email,
                 password: password,
             };
-            console.log(credentials);
+            // console.log(credentials);
+            const response = await api().signIn(credentials);
+            // console.log(response)
             //TODO: Save credentials in Redux
-            navigation.reset({index: 0, routes: [{name: 'Home'}]});
+            AsyncStorage.setItem('USER', JSON.stringify(response.user));
+            AsyncStorage.setItem('EMAIL', email);
+            response.success && navigation.reset({index: 0, routes: [{name: 'Home', params: response.user}]});
+            !response.success && Alert.alert('Credenciales inválidas', 'por favor intente con otras')
         }
     }
 

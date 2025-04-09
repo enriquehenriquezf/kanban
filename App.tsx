@@ -10,6 +10,7 @@ import SignUpScreen from '@/app/SignUp';
 import Board from '@/app/Board';
 import TaskUpsert from '@/components/TaskUpsert';
 import { Colors } from './constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ const LogoutScreen = () => {
     {
       text: 'Aceptar',
       onPress: () => {
+        AsyncStorage.removeItem('USER');
         navigation.reset({
           index: 0,
           routes: [{ name: 'Auth' }],

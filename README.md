@@ -31,7 +31,7 @@ An application that allows users to manage tasks on a Kanban board (To Do, In Pr
 - [x]  Sign In
 - [x]  Sign Up
 - [ ]  Real-time synchronization of task changes
-- [-]  Backend connection
+- [x]  Backend connection
 - [ ]  Filters
 - [ ]  Offline support
 - [ ]  Unit tests

@@ -7,6 +7,8 @@ import DynamicInput from './DynamicInput';
 import { Picker } from '@react-native-picker/picker';
 import { useValidation } from '@/hooks/useValidation';
 import { InputType, PriorityType } from '@/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { api } from '@/services/api';
 
 const TaskUpsert = () => {
     const route = useRoute();
@@ -18,6 +20,19 @@ const TaskUpsert = () => {
     const [selectedPriority, setSelectedPriority] = useState<PriorityType | null>(task ? task.priority : null);
     const [selectedColumn, setSelectedColumn] = useState<number>(column);
     const [upsertDisabled, setUpsertDisabled] = useState<boolean>(true);
+    const [user, setUser] = useState<any>({});
+    const [board, setBoard] = useState<any>({});
+
+    useEffect(() => {
+        AsyncStorage.getItem('USER').then((value) => {
+            const getUser = value ? JSON.parse(value) : {};
+            setUser(getUser)
+        });
+        AsyncStorage.getItem('BOARD').then((value) => {
+            const getBoard = value ? JSON.parse(value) : {};
+            setBoard(getBoard)
+        });
+    }, []);
 
     useEffect(() => {
         handleUpsertDisabled();
@@ -34,7 +49,7 @@ const TaskUpsert = () => {
         }
     }
 
-    const Upsert = () => {
+    const Upsert = async () => {
         //TODO: Update or insert task in backend
         const upsertTask = {
             id: task ? task.id : null,
@@ -45,13 +60,21 @@ const TaskUpsert = () => {
             date: new Date().toISOString(),
         };
 
+        // const response = await api().upsertTask(user.uid, board, upsertTask);
         navigation.popTo('Home', { task: upsertTask });
     }
 
-    const DeleteTask = () => {
+    const DeleteTask = async () => {
         //TODO: Delete task in backend
+        let boardUpdated = {...board};
+        const columnIndex = boardUpdated.columns.findIndex((column:any )=> column.id === task.column);
+        const taskIndex = boardUpdated.columns[columnIndex].tasks.findIndex((t:any) => t.id === task.id);
+        if (taskIndex !== -1) {
+            boardUpdated.columns[columnIndex].tasks.splice(taskIndex, 1);
+            setBoard({...boardUpdated});
+        }
+        // const response = await api().deleteTask(user.uid, boardUpdated);
         navigation.popTo('Home', { deleted: task.id, selectedColumn: column });
-        // navigation.reset({index: 0, routes: [{name: 'Home', params: {deleted: task.id}}]});
     }
 
     return (
