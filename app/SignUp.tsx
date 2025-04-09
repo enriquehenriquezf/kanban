@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { Spacing, Styles } from '@/constants';
 import { useValidation } from '@/hooks/useValidation';
-import { InputType } from '@/types';
+import { AuthSignUpType, InputType } from '@/types';
 import DynamicInput from '@/components/DynamicInput';
 
 const SignUp = () => {
@@ -42,7 +42,14 @@ const SignUp = () => {
     const SignUp = () => {
         if (!signUpDisabled) {
             //TODO: validate credentials with backend
-            console.log(email, password);
+            const body: AuthSignUpType = {
+                name: name,
+                lastName: lastName,
+                email: email,
+                password: password,
+                password2: password2,
+            };
+            console.log(body);
             //TODO: Save credentials in Redux
             //navigation.reset({index: 0, routes: [{name: 'Home'}]}); //FIXME: replace when drawer is implemented
             navigation.navigate('Home');

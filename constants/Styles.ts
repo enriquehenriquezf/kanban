@@ -3,7 +3,7 @@ import { Colors } from './Colors';
 import { Spacing } from './Spacing';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+// const windowHeight = Dimensions.get('window').height;
 
 const calculateBoardWidth = () => {
     const width = windowWidth * 0.8;
@@ -15,6 +15,17 @@ const calculateBoardWidth = () => {
         return width;
     }
 };
+
+// const calculateCardHeight = () => {
+//     const height = windowHeight * 0.25;
+//     if (height < 130) {
+//         return 130;
+//     } else if (height > 250) {
+//         return 250;
+//     } else {
+//         return height;
+//     }
+// };
 
 export const Styles = StyleSheet.create({
     container: {
@@ -108,7 +119,61 @@ export const Styles = StyleSheet.create({
         ...Spacing.p('', 5),
         borderRadius: 12,
         width: calculateBoardWidth(),
+        height: 170,
+        minHeight: 130,
+        maxHeight: 250,
         minWidth: 200,
         maxWidth: 400
     },
+    taskTitle: {
+        color: Colors.text,
+        fontSize: 16,
+        fontWeight: 'medium',
+        ...Spacing.m('b', 2),
+    },
+    taskDescription: {
+        color: Colors.taskDescription,
+        fontSize: 14,
+        fontWeight: 'regular',
+        ...Spacing.m('b', 3),
+    },
+    taskPriorityText: {
+        fontSize: 12,
+        fontWeight: 'medium',
+        textAlign: 'center'
+    },
+    taskDate: {
+        color: Colors.label,
+        fontSize: 14,
+        fontWeight: 'regular',
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    priorityBadge: {
+        backgroundColor: Colors.primary,
+        width: 64,
+        minWidth: 64,
+        maxWidth: 80,
+        height: 'auto',
+        borderRadius: 32,
+        ...Spacing.p('', 2),
+    },
+    taskButton: {
+        position: 'absolute',
+        bottom: 24,
+        right: 16,
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        padding: 4,
+    },
+    taskButtonText: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: Colors.textLight,
+        textAlign: 'center',
+    }
 });

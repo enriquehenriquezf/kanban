@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Text, Image, TextInput, TouchableOpacity, Platfor
 import { useNavigation } from '@react-navigation/native';
 import { Styles, Images, Spacing } from '@/constants';
 import { useValidation } from '@/hooks/useValidation';
-import { InputType } from '@/types';
+import { AuthType, InputType } from '@/types';
 import DynamicInput from '@/components/DynamicInput';
 
 const Auth = () => {
@@ -37,7 +37,11 @@ const Auth = () => {
     const Login = () => {
         if (!loginDisabled) {
             //TODO: validate credentials with backend
-            console.log(email, password);
+            const credentials: AuthType = {
+                email: email,
+                password: password,
+            };
+            console.log(credentials);
             //TODO: Save credentials in Redux
             //navigation.reset({index: 0, routes: [{name: 'Home'}]}); //FIXME: replace when drawer is implemented
             navigation.navigate('Home');

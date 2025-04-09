@@ -32,4 +32,5 @@ export const Colors = {
     cardBackground: '#FFFFFF',
     cardBorder: '#F3F4F6',
     cardShadow: '#000000',
+    taskDescription: '#4B5563',
 }
