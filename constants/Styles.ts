@@ -25,7 +25,7 @@ export const Styles = StyleSheet.create({
     errorMessage: {
         color: Colors.error,
         fontSize: 14,
-        textAlign: 'center',
+        // textAlign: 'center',
         fontStyle: 'italic',
     },
     h1: {
@@ -42,12 +42,20 @@ export const Styles = StyleSheet.create({
     buttonDisabled: {
         backgroundColor: Colors.primaryLight,
     },
+    buttonOutline: {
+        backgroundColor: Colors.background,
+        borderWidth: 1,
+        borderColor: Colors.primary,
+    },
     buttonText: {
         color: Colors.textLight,
         fontSize: 16,
         textAlign: 'center',
         fontWeight: 'medium',
         ...Spacing.m('y','auto'),
+    },
+    buttonTextOutline: {
+        color: Colors.primary,
     },
     input: {
         height: 52,
@@ -56,6 +64,9 @@ export const Styles = StyleSheet.create({
         borderWidth: 1,
         ...Spacing.p('', 3),
         borderRadius: 8,
+    },
+    dynamicInput: {
+        width: '80%',
     },
     inputError: {
         borderColor: Colors.error,

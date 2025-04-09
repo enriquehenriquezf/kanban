@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import LoginScreen from './app/Auth';
-import RegisterScreen from './app/Register';
+import SignUpScreen from './app/SignUp';
 import Board from './app/Board';
 
 const Stack = createStackNavigator();
@@ -14,7 +14,7 @@ function AuthStackScreen() {
   return (
     <AuthStack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name="Login" component={LoginScreen} />
-      <AuthStack.Screen name="Register" component={RegisterScreen} />
+      <AuthStack.Screen name="SignUp" component={SignUpScreen} />
     </AuthStack.Navigator>
   );
 }

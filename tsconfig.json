@@ -11,7 +11,10 @@
     "jsx": "react-native",
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@react-navigation/*": ["./node_modules/@react-navigation/*"]
+      "@react-navigation/*": ["./node_modules/@react-navigation/*"],
+      "@/*": [
+        "./*"
+      ]
     }
   }
 }
